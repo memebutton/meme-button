@@ -1,35 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Meme Button</title>
     <style>
         body { 
             background-color: #0f172a; 
+            margin: 0; 
+            padding: 0;
             display: flex; 
             flex-direction: column; 
             align-items: center; 
             justify-content: center; 
-            min-height: 100vh; 
-            margin: 0; 
+            height: 100vh; 
+            width: 100vw;
             font-family: sans-serif; 
             overflow: hidden;
         }
 
-        h1 { 
-            color: white; 
-            text-transform: uppercase; 
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-
-        /* Fixed GIF height so it doesn't push the button away */
         #meme-gif {
-            height: 150px;
-            width: auto;
-            visibility: hidden; /* Using visibility so it keeps the space open */
-            margin-bottom: 10px;
-            border-radius: 10px;
+            height: 120px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            visibility: hidden;
         }
 
         .pushable {
@@ -38,13 +32,62 @@
             border: none;
             padding: 0;
             cursor: pointer;
-            outline: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .front {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 180px;
-            height:
-                
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+            background: radial-gradient(circle at 30% 30%, #ff4d4d, #b30000);
+            transform: translateY(-8px);
+            border: 3px solid #800000;
+            text-align: center;
+        }
+
+        .pushable:active .front {
+            transform: translateY(-2px);
+        }
+
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(255, 0, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+        }
+
+        .glow-active { animation: pulse-red 1.2s infinite; }
+    </style>
+</head>
+<body>
+
+    <img id="meme-gif" src="https://media.giphy.com/media/cgLnOHV8mhaGk/giphy.gif">
+    
+    <button class="pushable" onclick="playMeme()">
+        <span class="front">PRESS FOR<br>VIBES</span>
+    </button>
+
+    <audio id="audio" src="https://www.myinstants.com/media/sounds/spiderman-meme-song.mp3"></audio>
+
+    <script>
+        function playMeme() {
+            var audio = document.getElementById('audio');
+            var button = document.querySelector('.pushable');
+            var gif = document.getElementById('meme-gif');
+            
+            audio.currentTime = 0;
+            audio.play().catch(function(error) {
+                console.log("Mobile browser blocked auto-play. Click again.");
+            });
+
+            gif.style.visibility = 'visible';
+            button.classList.add('glow-active');
+
+            audio.onended = function() {
+                button.classList.remove('glow-active');
+                gif 
