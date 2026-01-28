@@ -12,13 +12,24 @@
             height: 100vh; 
             margin: 0; 
             font-family: 'Arial Black', sans-serif; 
+            overflow: hidden;
         }
 
         h1 { 
             color: white; 
             text-transform: uppercase; 
-            margin-bottom: 20px; 
+            margin-bottom: 10px; 
             letter-spacing: 2px;
+            text-align: center;
+        }
+
+        /* The GIF styling */
+        #meme-gif {
+            width: 200px;
+            height: auto;
+            display: none; /* Hidden by default */
+            margin-bottom: 20px;
+            border-radius: 10px;
         }
 
         .pushable {
@@ -28,17 +39,16 @@
             padding: 0;
             cursor: pointer;
             box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-            transition: all 0.3s;
         }
 
         .front {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 250px;
-            height: 250px;
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: bold;
             color: white;
             text-transform: uppercase;
@@ -46,53 +56,22 @@
             transform: translateY(-10px);
             border: 4px solid #800000;
             transition: transform 0.1s;
-            text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
         }
 
-        .pushable:active .front {
-            transform: translateY(-2px);
-        }
+        .pushable:active .front { transform: translateY(-2px); }
 
-        /* --- THE GLOW CODE --- */
         @keyframes pulse-red {
             0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
             70% { box-shadow: 0 0 0 30px rgba(255, 0, 0, 0); }
             100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
         }
 
-        .glow-active {
-            animation: pulse-red 1.5s infinite;
-        }
+        .glow-active { animation: pulse-red 1.5s infinite; }
     </style>
 </head>
 <body>
 
     <h1>Meme of the Day</h1>
+
+
     
-    <button class="pushable" onclick="playMeme()">
-        <span class="front">PRESS FOR VIBES</span>
-    </button>
-
-    <audio id="audio" src="https://www.myinstants.com/media/sounds/spiderman-meme-song.mp3"></audio>
-    
-
-    <script>
-        function playMeme() {
-            var audio = document.getElementById('audio');
-            var button = document.querySelector('.pushable');
-            
-            audio.currentTime = 0;
-            audio.play();
-
-            // Start the glow
-            button.classList.add('glow-active');
-
-            // Stop the glow when the music ends
-            audio.onended = function() {
-                button.classList.remove('glow-active');
-            };
-        }
-    </script>
-
-</body>
-</html>
