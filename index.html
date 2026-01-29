@@ -2,92 +2,69 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Meme Button</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meme Button - RUN</title>
     <style>
-        body { 
-            background-color: #0f172a; 
-            margin: 0; 
-            padding: 0;
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            height: 100vh; 
-            width: 100vw;
-            font-family: sans-serif; 
-            overflow: hidden;
-        }
-
-        #meme-gif {
-            height: 120px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            visibility: hidden;
-        }
-
-        .pushable {
-            background: #4a0000;
-            border-radius: 50%;
-            border: none;
-            padding: 0;
-            cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .front {
+        body {
             display: flex;
-            align-items: center;
             justify-content: center;
-            width: 160px;
-            height: 160px;
-            border-radius: 50%;
-            font-size: 14px;
-            font-weight: bold;
-            color: white;
-            background: radial-gradient(circle at 30% 30%, #ff4d4d, #b30000);
-            transform: translateY(-8px);
-            border: 3px solid #800000;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #121212;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .button-container {
             text-align: center;
         }
 
-        .pushable:active .front {
-            transform: translateY(-2px);
+        #meme-button {
+            width: 200px;
+            height: 200px;
+            background-color: #ff0000;
+            border: 10px solid #8b0000;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 15px #4b0000, 0 20px 25px rgba(0,0,0,0.5);
+            outline: none;
+            transition: all 0.1s ease;
+            position: relative;
         }
 
-        @keyframes pulse-red {
-            0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
-            70% { box-shadow: 0 0 0 20px rgba(255, 0, 0, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+        #meme-button:active {
+            box-shadow: 0 5px #4b0000, 0 10px 15px rgba(0,0,0,0.5);
+            transform: translateY(10px);
         }
 
-        .glow-active { animation: pulse-red 1.2s infinite; }
+        h1 {
+            color: white;
+            margin-top: 30px;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            text-shadow: 2px 2px #ff0000;
+        }
     </style>
 </head>
 <body>
 
-    <img id="meme-gif" src="https://media.giphy.com/media/cgLnOHV8mhaGk/giphy.gif">
-    
-    <button class="pushable" onclick="playMeme()">
-        <span class="front">PRESS FOR<br>VIBES</span>
-    </button>
-
-    <audio id="audio" src="https://www.myinstants.com/media/sounds/spiderman-meme-song.mp3"></audio>
+    <div class="button-container">
+        <button id="meme-button" onclick="playRun()"></button>
+        <h1>RUN</h1>
+    </div>
 
     <script>
-        function playMeme() {
-            var audio = document.getElementById('audio');
-            var button = document.querySelector('.pushable');
-            var gif = document.getElementById('meme-gif');
-            
+        // Direct link to the 'Run' vine audio
+        const audio = new Audio('https://www.myinstants.com/media/sounds/run-vine.mp3');
+
+        function playRun() {
+            // Rewind to start if clicked multiple times quickly
             audio.currentTime = 0;
             audio.play().catch(function(error) {
-                console.log("Mobile browser blocked auto-play. Click again.");
+                console.log("Audio failed to play. Make sure you interact with the page first.");
             });
+        }
+    </script>
 
-            gif.style.visibility = 'visible';
-            button.classList.add('glow-active');
-
-            audio.onended = function() {
-                button.classList.remove('glow-active');
-                gif 
+</body>
+</html>
